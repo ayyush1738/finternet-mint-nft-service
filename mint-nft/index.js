@@ -158,11 +158,11 @@ app.post('/mint', async (req, res) => {
     const transaction_base64 = serialized.toString('base64');
     res.json({ transaction_base64 });
   } catch (err) {
-    console.error('❌ Mint error:', err.stack || err.message);
+    console.error('Mint error:', err.stack || err.message);
     res.status(500).json({ message: err.message || 'Minting failed' });
   }
 });
 
 app.listen(5000, () => {
-  console.log('⚡ Minting service running at http://localhost:5000');
+  console.log('Minting service running at http://localhost:5000');
 });
