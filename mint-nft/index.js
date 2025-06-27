@@ -43,6 +43,8 @@ const findMetadataPDA = async (mintPublicKey) => {
   return pda;
 };
 
+const PORT = process.env.PORT || 5001;
+
 app.post('/mint', async (req, res) => {
   try {
     const {
@@ -71,7 +73,6 @@ app.post('/mint', async (req, res) => {
 
     const lamports = await getMinimumBalanceForRentExemptMint(connection);
 
-    // 🧾 Instructions
     const createMintAccountIx = SystemProgram.createAccount({
       fromPubkey: userPublicKey,
       newAccountPubkey: mintPublicKey,
@@ -118,7 +119,6 @@ app.post('/mint', async (req, res) => {
       }
     );
 
-    // 💠 New: Mint to Creator ATA
     const creatorATA = await getAssociatedTokenAddress(
       mintPublicKey,
       userPublicKey
@@ -163,6 +163,6 @@ app.post('/mint', async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log('Minting service running at http://localhost:5000');
+app.listen(PORT, () => {
+  console.log(`Minting service running at http://localhost:${PORT}`);
 });
